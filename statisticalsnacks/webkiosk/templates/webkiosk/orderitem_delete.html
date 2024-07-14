@@ -1,0 +1,15 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %} Delete Order Item #{{ orderitem.id }}{% endblock %}
+
+{% block maincontent %}
+<h2>Delete Order Item</h2>
+
+<form method = "post">
+    {% csrf_token %}
+    <p>Are you sure you want to remove <b> {{orderitem.quantity}} {{ orderitem.food.name }} </b> from your order?</p>
+    <a href="{% url 'webkiosk:order-detail' orderitem.order.id %}">Cancel</a>
+    <input type="submit" value="Yes">
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %}Order Form{% endblock %}
+
+{% block maincontent %}
+<h2>{{ actionname }} Order Item </h2>
+
+<form method = "post"> 
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type = "submit" name="add_item" value = "Add Order Item">
+    <input type = "submit" name="submit" value = "Complete Order"> 
+</form>
+
+{% endblock %}

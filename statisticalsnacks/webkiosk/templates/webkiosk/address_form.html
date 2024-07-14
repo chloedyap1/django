@@ -1,0 +1,14 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %} Address Form{% endblock %}
+
+{% block maincontent %}
+<h2>Add Address</h2>
+
+<form method = "post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

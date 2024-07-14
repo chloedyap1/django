@@ -1,0 +1,48 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %}{{ customer.firstname }} {{ customer.lastname }}{% endblock %}
+
+{% block maincontent %}
+<h2>Customer Details</h2>
+<ul>
+    <li>Name: {{ customer.firstname }} {{ customer.lastname }}</li>
+    <li>Date Joined: {{ customer.date_joined }}</li>
+</ul>
+
+{% if customer.address_set.exists %}
+
+<h3>Addresses</h3>
+
+<ul>
+    {% for address in customer.address_set.all %}
+        <li>{{ address.street }} {{ address.city }}</li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No addresses found for this customer.</p>
+
+{% endif %}
+
+<p><a href="{% url 'webkiosk:address-add' customer.id %}">Add Address</a></p>
+
+{% if customer.order_set.exists %}
+
+<h3>Orders</h3>
+
+<ul>
+    {% for order in customer.order_set.all %}
+        <li>Order ID #{{ order.id }} - {{ order.orderdatetime }} | <a href="{% url 'webkiosk:order-info' order.id%}">View Details</a></li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No orders found for this customer.</p>
+
+{% endif %}
+
+<p><a href="{% url 'webkiosk:customerorder-add' customer.id %}">Add Order</a></p>
+
+{% endblock %}

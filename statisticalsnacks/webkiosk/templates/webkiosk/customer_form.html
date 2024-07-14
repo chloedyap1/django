@@ -1,0 +1,20 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %}Customer Form{% endblock %}
+
+{% block maincontent %}
+<h2>{{ actionname }} Customer</h2>
+
+<form method = "post"> <!--"post": intend to insert or update data in the server-->
+    {% csrf_token %} <!--django feature used as protection-->
+    {{ form.as_ul }} <!--as_ul turns the fields into a list, otherwise they will come out beside each other-->
+    <input type = "submit" value = "Submit"> <!--type renders the element as a button; value is the label of the button-->
+</form>
+
+<ul> <!--we use a for loop because the value in messages is a list-->
+    {% for message in messages %} 
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

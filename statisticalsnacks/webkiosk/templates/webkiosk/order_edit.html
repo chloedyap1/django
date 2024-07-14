@@ -1,0 +1,25 @@
+{% extends 'webkiosk/base_template.html' %}
+
+{% block pagetitle %}Order Details{% endblock %}
+
+{% block maincontent %}
+<h2>Order #{{ order.id }} Details</h2>
+
+<ul>
+    <li>Customer: {{ order.customer.firstname }} {{ order.customer.lastname }} | <a href="{% url 'webkiosk:order-update' order.id %}">Edit</a></li>
+    <li>Mode of Payment: {{ order.paymentmode }} | <a href="{% url 'webkiosk:order-update' order.id %}">Edit</a></li>
+</ul>
+
+<h4>Order Items:</h4>
+<ul>
+    {% if orderitem.exists %}
+        {% for item in orderitem %}  
+            <li>{{ item.food.name }} (₱{{item.food.price}}) - {{ item.quantity }} PCS || <b> ₱{{ item.subtotal}}</b> | <a href="{% url 'webkiosk:orderitem-update' item.id %}">Edit</a> | <a href="{% url 'webkiosk:orderitem-delete' item.id %}">Delete</a></li>
+        {% endfor %}
+        <p><b>Total: ₱{{ order.total }}</b></p>
+    {% else %}
+        <p>There are no items in this order.</p> 
+    {% endif %}
+</ul>
+
+{% endblock %}
